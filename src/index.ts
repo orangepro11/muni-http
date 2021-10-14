@@ -1,3 +1,3 @@
 export * from './type';
-export { HttpRequest } from './HttpRequest';
-export { createGetHook, createPostHook } from './CreateHttpHook';
+export * from './HttpRequest';
+export * from './CreateHttpHook';
