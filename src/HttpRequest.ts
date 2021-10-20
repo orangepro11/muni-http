@@ -29,11 +29,9 @@ class HttpRequest {
   }
 
   /**
-   *
-   * alias of constructor
+   * 构造函数的替代方案
    * @author 不爱喝橙子汁
    * @static
-   * @return {*}
    * @memberof HttpRequest
    */
   static create(): HttpRequest {
@@ -41,17 +39,16 @@ class HttpRequest {
   }
 
   /**
-   *
-   * get All Instance
+   * 获取当前的所有实例
    * @author 不爱喝橙子汁
    * @static
-   * @return {*}
    * @memberof HttpRequest
    */
   static getInstances(): HttpRequest[] {
     return HttpRequest.instances;
   }
 
+  
   public getRequestUrl(): RequestInfo {
     return this.requestUrl;
   }
@@ -177,13 +174,19 @@ class HttpRequest {
   }
 
   public get(url: RequestInfo, params?: any): Promise<any> {
-    return this.sendRequest(url + toURL(params));
+    return this.sendRequest(url + '?' + toURL(params));
   }
 
   public post(url: RequestInfo, body?: any): Promise<any> {
+    let data = body;
+    if (this.headers['Content-Type'] == HttpContentType.form) {
+      data = toURL(body);
+    } else if (this.headers['Content-Type'] == HttpContentType.json) {
+      data = JSON.stringify(body);
+    }
     return this.sendRequest(url, {
       method: 'POST',
-      body,
+      body: data,
     });
   }
 

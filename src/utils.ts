@@ -4,7 +4,7 @@ export function toURL(params: any): string {
   for (let k in params) {
     temp.push(k + '=' + encodeURIComponent(params[k]));
   }
-  return '?' + temp.join('&');
+  return temp.join('&');
 }
 
 export function validateResponse(response: Response) {
